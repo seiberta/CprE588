@@ -40,6 +40,7 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 		while(1)
 		{
 			//---------- Get Ground Station Data ----------//
+			// Uses Wifi?
 			// Receive throttle
 			rc.receive(&throttle, sizeof(throttle));
 			// Receive pitch
@@ -50,6 +51,7 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			rc.receive(&yaw, sizeof(yaw));
 
 			//---------------- Get Sensors ----------------//
+			// Use I2C to get data from sensors
 			accel_channel.receive(&accel_data, sizeof(accel_data));
 			gyro_channel.receive(&gyro_data, sizeof(gyro_data));
 			lidar_channel.receive(&lidar_data, sizeof(lidar_data));
@@ -65,6 +67,7 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 
 
 			//-------- Send Data to Ground Station --------//
+			// Uses Bluetooth
 			// Send throttle
 			bluetooth.send(&throttle, sizeof(throttle));
 			// Send pitch
