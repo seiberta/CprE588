@@ -52,6 +52,15 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 
 			//---------------- Get Sensors ----------------//
 			// Use I2C to get data from sensors
+			// different speeds for sending data[100kbits/s | 400kbits/s | 1mbits/s | 3.2mbits/s]
+			// assume 7 bit addresses, but still send 8 bits
+			// to read in I2C:
+			// send start sequence
+			// send I2C address on bus(8 bits)
+			// send internal address to read(8 bits)
+			// resend start sequence
+			// send I2C address on bus(8 bits)
+			// read data (multiple-of-8 bits)
 			accel_channel.receive(&accel_data, sizeof(accel_data));
 			gyro_channel.receive(&gyro_data, sizeof(gyro_data));
 			lidar_channel.receive(&lidar_data, sizeof(lidar_data));
