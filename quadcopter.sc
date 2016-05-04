@@ -30,10 +30,9 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 	lidar lidar_unit(lidar_channel);
 	gps gps_unit(gps_channel);
 
-	// counts the time in milliseconds
-	float timing = 0.f;
+	// counts the waiting time in milliseconds
 	unsigned int throttle, pitch, roll, yaw;
-	double accel_data, gyro_data, lidar_data, gps_data, position_data;
+	double waiting_time, accel_data, gyro_data, lidar_data, gps_data, position_data;
 
 	void main(void) {
 		//---------- Initialization ----------//
@@ -74,22 +73,22 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			accel_channel.receive(&accel_data, sizeof(accel_data));
 			// 12 bytes of data
 			// total number of bits sent/received = 27 + 12*8 + 12 = 135
-			time = time + ((float)135 / I2C_DATA_RATE);
+			waiting_time = waiting_time + ((double)135 / I2C_DATA_RATE);
 
 			gyro_channel.receive(&gyro_data, sizeof(gyro_data));
 			// 12 bytes of data
 			// total number of bits sent/received = 135
-			time = time + ((float)135 / I2C_DATA_RATE);
+			waiting_time = waiting_time + ((double)135 / I2C_DATA_RATE);
 
 			lidar_channel.receive(&lidar_data, sizeof(lidar_data));
 			// 4 bytes of data
 			// total number of bits sent/received = 27 + 4*8 + 4 = 27 + 36 = 63
-			time = time + ((float)63 / I2C_DATA_RATE);
+			waiting_time = waiting_time + ((double)63 / I2C_DATA_RATE);
 
 			gps_channel.receive(&gps_data, sizeof(gps_data));
 			// 8 bytes of data
 			// total number of bits sent/received = 27 + 8*8 + 8 = 27 + 72 = 99
-			time = time + ((float)99 / I2C_DATA_RATE);
+			waiting_time = waiting_time + ((double)99 / I2C_DATA_RATE);
 
 			//------------- Sensor Processing -------------//
 
@@ -107,24 +106,24 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			// Send throttle
 			bluetooth.send(&throttle, sizeof(throttle));
 			// total number of bits sent = 80
-			// since baudrate is in bits per second, to get the time in
+			// since baudrate is in bits per second, to get the waiting_time in
 			// milliseconds, we multiply the result by 1000
-			time = time + (((float)80 / BAUDRATE) * 1000.f);
+			waiting_time = waiting_time + (((double)80 / BAUDRATE) * 1000.0);
 
 			// Send pitch
 			bluetooth.send(&pitch, sizeof(pitch));
 			// total number of bits sent = 80
-			time = time + (((float)80 / BAUDRATE) * 1000.f);
+			waiting_time = waiting_time + (((double)80 / BAUDRATE) * 1000.0);
 
 			// Send roll
 			bluetooth.send(&roll, sizeof(roll));
 			// total number of bits sent = 80
-			time = time + (((float)80 / BAUDRATE) * 1000.f);
+			waiting_time = waiting_time + (((double)80 / BAUDRATE) * 1000.0);
 
 			// Send yaw
 			bluetooth.send(&yaw, sizeof(yaw));
 			// total number of bits sent = 80
-			time = time + (((float)80 / BAUDRATE) * 1000.f);
+			waiting_time = waiting_time + (((double)80 / BAUDRATE) * 1000.0);
 			
 			waitfor(10);
 		}
