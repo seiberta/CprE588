@@ -473,7 +473,7 @@ ground station and the RC controller.
 \section{Model Design}
 The design of the different components of this project is detailed
 in this section.  The TLM model of the quadcopter can be seen in
-Figure~\ref{fig_sim}
+Figure~\ref{fig_sim}. The different portions of the TLM model were modeled using Specc. These portions have timing delays associated with them for the communication and computation approximate timing. The timing delays depend partly on the component on which a section is implemented. 
 
 \begin{figure}[!t]
 \centering
@@ -481,6 +481,12 @@ Figure~\ref{fig_sim}
 \caption{A TLM diagram of the quadcopter}
 \label{fig_sim}
 \end{figure}
+
+The mapping of the sections of the quadcopter to either hardware or software was done. The timing of the main loop on the quadcopter has to maintain a 10 ms loop time. For this reason, any mapping that has a timing delay of more than 10 ms per loop is invalid. The timings of the communication were estimated by using the communication rates of the communication interfaces on the system and the number of bytes sent over the communication interface. The computation estimates were done by counting the lines of code used in each of the quadcopter sections. This line count was then multiplied by a timing determined by being in software or hardware.
+
+The other aspect of the mapping evaluation is the cost of the system. The monetary cost of the system stays the same independent of the mapping of the sections because the system is implemented on a Xilinx Zybo board which has both processors and an FPGA on it already without additional cost. The cost of the system used was the development time. The whole system has already been implemented in software, so the cost would be time to switch the code over to hardware. The development time to switch the code over to hardware is determined by the number of lines of code and the time for a developer to swich over one line into hardware. This may not be the most accurate calculation, but it works for the approximate timing needed for comparison.
+
+
 % An example of a floating table. Note that, for IEEE style tables, the
 % \caption command should come BEFORE the table and, given that table
 % captions serve much like titles, are usually capitalized except for words

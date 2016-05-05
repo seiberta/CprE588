@@ -26,7 +26,6 @@ behavior Main
 
 	int main (void)
 	{
-		printf("kksdjfl\n");
 		par {
 			U0.main();
 			U1.main();

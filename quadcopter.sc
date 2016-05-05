@@ -17,6 +17,13 @@ import "sensors";
 // standard baud rates: 1200, 2400, 4800, 9600, 19200, 38400, 57600, and 115200
 #define BAUDRATE 9600
 
+// code line time delay (estimates 4 instructions per line of code)
+#define LINEDLAY 4
+
+// instruction time delay in time units (one for SW and one for HW)
+#define SWINST 2
+#define HWINST 1
+
 // Simulates the quadcopter
 behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 {
@@ -48,6 +55,11 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 		while(1)
 		{
 			//---------- Get Ground Station Data ----------//
+			// Computation
+			// 36 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)36 * LINEDLAY * SWINST );
+			
+			// Communication
 			// Uses Wifi?
 			// Receive throttle
 			rc.receive(&throttle, sizeof(throttle));
@@ -59,6 +71,11 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			rc.receive(&yaw, sizeof(yaw));
 
 			//---------------- Get Sensors ----------------//
+			// Computation
+			// 20 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)20 * LINEDLAY * SWINST );
+
+			// Communication
 			// Use I2C to get data from sensors
 			// different speeds for sending data[100kbits/s | 400kbits/s | 1mbits/s | 3.2mbits/s]
 			// assume 7 bit addresses, but still send 8 bits
@@ -91,15 +108,35 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			waiting_time = waiting_time + ((double)99 / I2C_DATA_RATE);
 
 			//------------- Sensor Processing -------------//
+			// Computation
+			// 24 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)24 * LINEDLAY * SWINST );
+
+			// Communication - None
 
 
 			//------------- Control Algorithm -------------//
+			// Computation
+			// 130 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)130 * LINEDLAY * SWINST );
+
+			// Communication - None
 
 
 			//-------- Actuator Command Processing --------//
+			// Computation
+			// 18 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)18 * LINEDLAY * SWINST );
+
+			// Communication - None
 
 
 			//-------- Send Data to Ground Station --------//
+			// Computation
+			// 20 lines of code (possibly doing multiple instrucions per line)
+			waiting_time = waiting_time + ((double)20 * LINEDLAY * SWINST );
+
+			// Communication
 			// Uses Bluetooth(Serial port profile)
 			// metadata for each message is 8 bytes each
 			// 1 start bit, 1 end bit, 8 bits of data, no parity bit

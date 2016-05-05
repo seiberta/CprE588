@@ -5,13 +5,14 @@
 *  Description: testbench for vending machine
 ****************************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+
 import "rc_transmitter";
 import "ground_station";
 import "quadcopter";
 
 import "c_queue";
-//#include <stdio.h>
-//#include <stdlib.h>
 
 behavior Main
 {
