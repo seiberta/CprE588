@@ -490,7 +490,7 @@ with them for the communication and computation approximate timing.
 The timing delays depend partly on the component on which a section
 is implemented. 
 
-\begin{figure}[!t]
+\begin{figure}[!tb]
 \centering
 \includegraphics[width=2.5in]{TLM_Model}
 \caption{A TLM diagram of the quadcopter}
@@ -577,30 +577,43 @@ matrix with size 8x8.
 
 \section{Results}
 
+The results of our design space exploration is shown in Figure~\ref{results}.
+As can be seen, the execution time of the loop doesn't vary with changing
+computation positions, i.e., changing a computation sequence from
+performing the computation in software to performing the computation
+in hardware has very little effect on the computation time of the
+loop.  It seems that the main bottleneck of the system comes from
+the transferring of data to and from the ground control station and
+to and from the sensors.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics{results}
+\caption{Results of cost vs performance time}
+\label{results}
+\end{figure}
+
 
 \section{Conclusion}
-The conclusion goes here.
+Cyber physical systems modelling is useful in embedded systems
+design as a means to explore different design desicions and
+to have an understanding of a system before constructing it.  
+MicroCART is a project that has three parts, a RC controller,
+a ground station, and a quadcopter.  The quadcopter is a cyber
+physical system, as it consists of a microcontroller, a multitude
+of sensors, and communication channels to the RC controller and
+the ground station.  We decided to model the quadcopter to see
+where the bottlenecks are in the implementation, and to explore
+the different implementation combinations.  The Design exploration
+of the quadcopter has shown that the transfer of data to and from
+the ground station and reading data from the sensors.  This was
+not initially expected, but as the experiments went on and
+more work was done this became obvious.
 
 
 
 
 % conference papers do not normally have an appendix
-
-
-
-% use section* for acknowledgment
-\ifCLASSOPTIONcompsoc
-  % The Computer Society usually uses the plural form
-  \section*{Acknowledgments}
-\else
-  % regular IEEE prefers the singular form
-  \section*{Acknowledgment}
-\fi
-
-
-The authors would like to thank...
-
-
 
 
 
