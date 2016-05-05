@@ -70,22 +70,22 @@ behavior quadcopter(i_receiver rc, i_tranceiver bluetooth)
 			// send I2C address on bus(8 bits + 1 ACK bit)
 			// read data (multiple-of-8 bits plus 1 ACK bit for each byte)
 
-			accel_channel.receive(&accel_data, sizeof(accel_data));
+			//accel_channel.receive(&accel_data, sizeof(accel_data));
 			// 12 bytes of data
 			// total number of bits sent/received = 27 + 12*8 + 12 = 135
 			waiting_time = waiting_time + ((double)135 / I2C_DATA_RATE);
 
-			gyro_channel.receive(&gyro_data, sizeof(gyro_data));
+			//gyro_channel.receive(&gyro_data, sizeof(gyro_data));
 			// 12 bytes of data
 			// total number of bits sent/received = 135
 			waiting_time = waiting_time + ((double)135 / I2C_DATA_RATE);
 
-			lidar_channel.receive(&lidar_data, sizeof(lidar_data));
+			//lidar_channel.receive(&lidar_data, sizeof(lidar_data));
 			// 4 bytes of data
 			// total number of bits sent/received = 27 + 4*8 + 4 = 27 + 36 = 63
 			waiting_time = waiting_time + ((double)63 / I2C_DATA_RATE);
 
-			gps_channel.receive(&gps_data, sizeof(gps_data));
+			//gps_channel.receive(&gps_data, sizeof(gps_data));
 			// 8 bytes of data
 			// total number of bits sent/received = 27 + 8*8 + 8 = 27 + 72 = 99
 			waiting_time = waiting_time + ((double)99 / I2C_DATA_RATE);

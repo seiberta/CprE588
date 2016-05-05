@@ -15,7 +15,7 @@ behavior accelerometer (i_sender communication)
 		double data = 0;
 		while(1)
 		{
-			communication.send(&data, sizeof(data));
+			//communication.send(&data, sizeof(data));
 			// Wait for data to be ready
 		}
 	}
@@ -28,7 +28,7 @@ behavior gyroscope (i_sender communication)
 		double data = 0;
 		while(1)
 		{
-			communication.send(&data, sizeof(data));
+			//communication.send(&data, sizeof(data));
 			// Wait for data to be ready
 		}
 	}
@@ -41,7 +41,7 @@ behavior lidar (i_sender communication)
 		double data = 0;
 		while(1)
 		{
-			communication.send(&data, sizeof(data));
+			//communication.send(&data, sizeof(data));
 			// Wait for data to be ready
 		}
 	}
@@ -54,7 +54,7 @@ behavior gps (i_sender communication)
 		double data = 0;
 		while(1)
 		{
-			communication.send(&data, sizeof(data));
+			//communication.send(&data, sizeof(data));
 			// Wait for data to be ready
 		}
 	}
